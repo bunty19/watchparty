@@ -541,6 +541,10 @@ export default class App extends React.Component<AppProps, AppState> {
       this.setState({ controller: data });
     });
     socket.on('REC:host', async (data: HostState) => {
+      data.video = String(
+        new URLSearchParams(window.location.search).get('url')
+      );
+      console.log(data.video);
       let currentMedia = data.video || '';
       if (this.isScreenShare() && !currentMedia.startsWith('screenshare://')) {
         this.stopScreenShare();
@@ -1704,109 +1708,7 @@ export default class App extends React.Component<AppProps, AppState> {
                               }
                             />
                           )}
-                        {!this.screenShareStream &&
-                          !sharer &&
-                          !this.isVBrowser() && (
-                            <Popup
-                              content="Launch a shared virtual browser"
-                              trigger={
-                                <Button
-                                  fluid
-                                  className="toolButton"
-                                  disabled={!this.haveLock()}
-                                  icon
-                                  labelPosition="left"
-                                  color="green"
-                                  onClick={() => {
-                                    this.setState({
-                                      isVBrowserModalOpen: true,
-                                    });
-                                  }}
-                                >
-                                  <Icon name="desktop" />
-                                  VBrowser
-                                </Button>
-                              }
-                            />
-                          )}
-                        {this.isVBrowser() && (
-                          <Popup
-                            content="Choose the person controlling the VBrowser"
-                            trigger={
-                              <Dropdown
-                                icon="keyboard"
-                                labeled
-                                className="icon"
-                                style={{ height: '36px' }}
-                                button
-                                value={this.state.controller}
-                                placeholder="No controller"
-                                clearable
-                                onChange={this.changeController}
-                                selection
-                                disabled={!this.haveLock()}
-                                options={this.state.participants.map((p) => ({
-                                  text: this.state.nameMap[p.id] || p.id,
-                                  value: p.id,
-                                }))}
-                              ></Dropdown>
-                            }
-                          />
-                        )}
-                        {this.isVBrowser() && (
-                          <Dropdown
-                            icon="desktop"
-                            labeled
-                            className="icon"
-                            style={{ height: '36px' }}
-                            button
-                            disabled={!this.haveLock()}
-                            value={this.state.vBrowserResolution}
-                            onChange={(_e, data) =>
-                              this.setState({
-                                vBrowserResolution: data.value as string,
-                              })
-                            }
-                            selection
-                            options={[
-                              {
-                                text: '1080p (Plus only)',
-                                value: '1920x1080@30',
-                                disabled: !this.state.isVBrowserLarge,
-                              },
-                              {
-                                text: '720p',
-                                value: '1280x720@30',
-                              },
-                              {
-                                text: '576p',
-                                value: '1024x576@60',
-                              },
-                              {
-                                text: '486p',
-                                value: '864x486@60',
-                              },
-                              {
-                                text: '360p',
-                                value: '640x360@60',
-                              },
-                            ]}
-                          ></Dropdown>
-                        )}
-                        {this.isVBrowser() && (
-                          <Button
-                            fluid
-                            className="toolButton"
-                            icon
-                            labelPosition="left"
-                            color="red"
-                            disabled={!this.haveLock()}
-                            onClick={this.stopVBrowser}
-                          >
-                            <Icon name="cancel" />
-                            Stop VBrowser
-                          </Button>
-                        )}
+
                         {!this.screenShareStream &&
                           !sharer &&
                           !this.isVBrowser() && (
