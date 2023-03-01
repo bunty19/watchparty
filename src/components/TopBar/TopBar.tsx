@@ -351,38 +351,36 @@ export class TopBar extends React.Component<{
             </div>
           ) : (
             <React.Fragment>
-              <a href="/" style={{ display: 'flex' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
                 <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                    color: '#21ba45',
+                    fontSize: '30px',
+                    lineHeight: '30px',
                   }}
                 >
-                  <div
-                    style={{
-                      textTransform: 'uppercase',
-                      fontWeight: 700,
-                      color: '#21ba45',
-                      fontSize: '30px',
-                      lineHeight: '30px',
-                    }}
-                  >
-                    Smashy
-                  </div>
-                  <div
-                    style={{
-                      textTransform: 'uppercase',
-                      fontWeight: 700,
-                      color: '#21ba45',
-                      fontSize: '30px',
-                      lineHeight: '30px',
-                      marginLeft: 'auto',
-                    }}
-                  >
-                    Stream
-                  </div>
+                  Smashy
                 </div>
-              </a>
+                <div
+                  style={{
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                    color: '#21ba45',
+                    fontSize: '30px',
+                    lineHeight: '30px',
+                    marginLeft: 'auto',
+                  }}
+                >
+                  Stream
+                </div>
+              </div>
             </React.Fragment>
           )}
 
